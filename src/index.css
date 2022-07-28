@@ -28,10 +28,12 @@ a {
   color:  rgb(221, 59, 0);
   text-shadow: none;
 }
+a.active {
+  background-color: limegreen;
+}
 a:hover {
   color:  rgb(141, 37, 0);
 }
-
 
 .character {
   border: 1px solid #333;

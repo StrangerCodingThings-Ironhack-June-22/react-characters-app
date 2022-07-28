@@ -2,10 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Routes, Route, NavLink } from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import CharacterList from './components/CharacterList';
+import CharacterDetails from './components/CharacterDetails';
 
 function App() {
-
-  const baseURL = 'https://ih-crud-api.herokuapp.com';
 
   const [characters, setCharacters] = useState(null);
 
@@ -16,7 +19,7 @@ function App() {
 
   const fetchCharacters = () => {
     axios
-      .get(baseURL + '/characters')
+      .get(process.env.REACT_APP_API_BASE_URL + '/characters')
       .then((response) => {
         const allCharacters = response.data;
         const fistTen = allCharacters.slice(0, 10)
@@ -30,7 +33,7 @@ function App() {
 
   const deleteCharacter = (id) => {
     axios
-      .delete(baseURL + '/characters/' + id)
+      .delete(process.env.REACT_APP_API_BASE_URL + '/characters/' + id)
       .then((response) => {
         fetchCharacters();
       })
@@ -39,36 +42,26 @@ function App() {
       });
   }
 
-  
-  const renderCharacters = () => {
-    const result = characters.map(element => {
-      return (
-        <div className='character'>
-          <h2>{element.name}</h2>
-          <p>Occupation: {element.occupation}</p>
-          <p>Weapon: {element.weapon}</p>
-
-          <button onClick={ () => {deleteCharacter(element.id) }}>Delete</button>
-        </div>
-      );
-    });
-
-    return result;
-  }
-
 
   return (
     <div className="App">
+
       <header>
         <h1>React Charates App</h1>
+        <nav>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/characters">Characters</NavLink>
+          <NavLink to="/about">About</NavLink>
+        </nav>
       </header>
 
-      <div>
-        { characters === null
-          ? <p>loading...</p>
-          : renderCharacters()
-        }
-      </div>
+      <Routes>
+        <Route path='/' element={ <Home />}></Route>
+        <Route path='/characters' element={ <CharacterList characters={characters} callbackToDelete={deleteCharacter} />}></Route>
+        <Route path='/characters/:characterId' element={ <CharacterDetails />} />
+        <Route path='/about' element={ <About />}></Route>
+      </Routes>
+
 
     </div>
   );
