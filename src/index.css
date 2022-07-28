@@ -5,9 +5,38 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+header {
+  margin: 0 auto 1rem;
+  padding: 1rem;
+  background-color: rgb(255, 208, 208);
+  border-bottom: 1px solid #333;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  display: inline-block;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  color:  rgb(221, 59, 0);
+  text-shadow: none;
+}
+a:hover {
+  color:  rgb(141, 37, 0);
+}
+
+
+.character {
+  border: 1px solid #333;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  background: #2dc3fa27;
+  padding: 1rem;
+  margin: 1rem;
 }
